@@ -1,7 +1,7 @@
-import { Header } from '../widgets/Header';
+import { MainPage } from '../pages/MainPage';
 
 function App() {
-  return <Header />;
+  return <MainPage />;
 }
 
 export default App;

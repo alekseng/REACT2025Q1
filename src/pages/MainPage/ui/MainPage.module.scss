@@ -1,0 +1,7 @@
+.wrong-query {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  height: calc(100dvh - var(--header-height) - var(--header-height));
+}

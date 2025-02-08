@@ -3,11 +3,17 @@ import { memo } from 'react';
 import cls from './Header.module.scss';
 import { HeaderForm } from '../../../features/HeaderForm';
 
-export const Header = memo(() => {
+interface HeaderProps {
+  onSearch: (query: string) => void;
+}
+
+export const Header = memo((props: HeaderProps) => {
+  const { onSearch } = props;
+
   return (
     <header className={cls.header}>
       <BugButton />
-      <HeaderForm />
+      <HeaderForm onSearch={onSearch} />
     </header>
   );
 });
