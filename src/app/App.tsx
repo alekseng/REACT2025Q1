@@ -1,7 +1,7 @@
-import { BugButton } from './providers/ErrorBoundary';
+import { Header } from '../widgets/Header';
 
 function App() {
-  return <BugButton />;
+  return <Header />;
 }
 
 export default App;
