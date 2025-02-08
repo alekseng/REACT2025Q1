@@ -1,7 +1,7 @@
-import './styles/App.css';
+import { BugButton } from './providers/ErrorBoundary';
 
 function App() {
-  return <h1>React 2025Q1</h1>;
+  return <BugButton />;
 }
 
 export default App;

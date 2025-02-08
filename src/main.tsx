@@ -1,13 +1,17 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './app/styles/index.css';
+import './app/styles/index.scss';
 import App from './app/App.tsx';
+import { ErrorBoundary } from './app/providers/ErrorBoundary';
 
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  createRoot(rootElement).render(
+const root = document.getElementById('root');
+
+if (root) {
+  createRoot(root).render(
     <StrictMode>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </StrictMode>
   );
 } else {
