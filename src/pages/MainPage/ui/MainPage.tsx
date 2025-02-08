@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import { fetchData } from '../../../shared/api/fetchData/fetchData.ts';
 import { Result } from '../../../shared/api/types/types.ts';
 import cls from './MainPage.module.scss';
+import { useLocalStorage } from '../../../shared/lib/hooks/useLocalStorage/useLocalStorage.ts';
 
 export const MainPage = () => {
   const [data, setData] = useState<Result[]>([]);
-  const [query, setQuery] = useState('cheetah');
+  const [query, setQuery] = useLocalStorage('aleksengQuery');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
