@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return <h1>React 2025Q1</h1>;
