@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 export function useLocalStorage(
   key: string
 ): [string, (newQuery: string) => void] {
-  const [query, setQuery] = useState<string>('cheetah');
+  const [query, setQuery] = useState<string>(() => {
+    const storedQuery = localStorage.getItem(key);
+    return storedQuery ? storedQuery : 'cheetah';
+  });
 
   useEffect(() => {
     const res = localStorage.getItem(key);

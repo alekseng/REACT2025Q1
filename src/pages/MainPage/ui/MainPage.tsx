@@ -5,6 +5,7 @@ import { fetchData } from '../../../shared/api/fetchData/fetchData.ts';
 import { Result } from '../../../shared/api/types/types.ts';
 import cls from './MainPage.module.scss';
 import { useLocalStorage } from '../../../shared/lib/hooks/useLocalStorage/useLocalStorage.ts';
+import { Loader } from '../../../shared/ui/Loader/Loader.tsx';
 
 export const MainPage = () => {
   const [data, setData] = useState<Result[]>([]);
@@ -16,7 +17,7 @@ export const MainPage = () => {
       setData(data.results);
       setLoading(false);
     });
-  });
+  }, []);
 
   const handleSearch = async (newQuery: string) => {
     setLoading(true);
@@ -40,7 +41,7 @@ export const MainPage = () => {
   return (
     <>
       <Header onSearch={handleSearch} />
-      {loading ? <p>Loading...</p> : <CardList results={data} />}
+      {loading ? <Loader /> : <CardList results={data} />}
     </>
   );
 };
