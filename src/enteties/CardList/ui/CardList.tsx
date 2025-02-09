@@ -2,8 +2,12 @@ import cls from './CardList.module.scss';
 import { FetchData } from '../../../shared/api/types/types.ts';
 import { CardListItem } from './CardListItem.tsx';
 
-export const CardList = (props: FetchData) => {
-  const { results } = props;
+interface CardListProps extends FetchData {
+  onCardClick: (id: string) => void;
+}
+
+export const CardList = (props: CardListProps) => {
+  const { results, onCardClick } = props;
 
   return (
     <div className={cls.card}>
@@ -12,6 +16,8 @@ export const CardList = (props: FetchData) => {
           key={card.id}
           alt_description={card.alt_description}
           urls={card.urls}
+          id={card.id}
+          onClick={onCardClick}
         />
       ))}
     </div>

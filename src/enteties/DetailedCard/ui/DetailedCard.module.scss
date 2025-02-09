@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  color: black;
+  padding: var(--padding);
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  padding: 10px 0;
+
+  > p {
+    font-size: 22px;
+  }
+}
+
+.img {
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.heading {
+  font-size: 24px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 22px;
+  line-height: 1.1;
+}

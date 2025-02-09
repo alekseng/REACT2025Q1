@@ -1,4 +1,4 @@
-const ID = 'h-JB_S_5wn16PF8uv5eRY9eWZlsPEzZk9vddRNpQjYo';
+export const ID = 'h-JB_S_5wn16PF8uv5eRY9eWZlsPEzZk9vddRNpQjYo';
 
 export const fetchData = async (page: number, query: string) => {
   try {
