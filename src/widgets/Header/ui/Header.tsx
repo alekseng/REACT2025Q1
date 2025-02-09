@@ -11,7 +11,7 @@ export const Header = memo((props: HeaderProps) => {
   const { onSearch } = props;
 
   return (
-    <header className={cls.header}>
+    <header data-testid="header" className={cls.header}>
       <BugButton />
       <HeaderForm onSearch={onSearch} />
     </header>
