@@ -11,7 +11,7 @@ export const Pagination = (props: PaginationProps<string>) => {
   const { totalPage, currentPage, onPageChange } = props;
 
   return (
-    <div className={cls.pagination}>
+    <div data-testid="pagination" className={cls.pagination}>
       <Button
         disabled={+currentPage === 1}
         onClick={() => onPageChange(+currentPage - 1)}
