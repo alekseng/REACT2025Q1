@@ -20,8 +20,13 @@ export const HeaderForm = ({ onSearch }: HeaderFormProps) => {
   };
 
   return (
-    <form className={cls.form} onSubmit={handleSubmit}>
-      <Input onChange={queryChange} value={query} placeholder="Search..." />
+    <form data-testid="form" className={cls.form} onSubmit={handleSubmit}>
+      <Input
+        data-testid="input"
+        onChange={queryChange}
+        value={query}
+        placeholder="Search..."
+      />
       <Button type="submit">Search</Button>
     </form>
   );
