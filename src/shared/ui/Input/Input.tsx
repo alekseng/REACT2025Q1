@@ -7,6 +7,7 @@ export const Input = memo((props: InputProps) => {
 
   return (
     <input
+      data-testid="input"
       className={`${cls.input} ${className}`}
       value={value}
       placeholder={placeholder}
