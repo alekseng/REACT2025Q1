@@ -71,7 +71,7 @@ export const MainPage = () => {
       ) : (
         <Pagination
           totalPage={totalPage}
-          currentPage={page}
+          currentPage={Number(page)}
           onPageChange={handlePageChange}
         />
       )}

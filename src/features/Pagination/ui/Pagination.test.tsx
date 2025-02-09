@@ -7,17 +7,13 @@ const mockFn = vi.fn();
 
 describe('Pagination', () => {
   it('Test render', async () => {
-    render(
-      <Pagination currentPage={'2'} onPageChange={mockFn} totalPage={10} />
-    );
+    render(<Pagination currentPage={2} onPageChange={mockFn} totalPage={10} />);
 
     expect(screen.getByTestId('pagination')).toBeInTheDocument();
   });
 
   it('Test click by buttons', async () => {
-    render(
-      <Pagination currentPage={'2'} onPageChange={mockFn} totalPage={10} />
-    );
+    render(<Pagination currentPage={2} onPageChange={mockFn} totalPage={10} />);
 
     const increaseBtn = screen.getByText('>');
     await userEvent.click(increaseBtn);

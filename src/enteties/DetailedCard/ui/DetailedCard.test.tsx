@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { vi, describe, it, expect } from 'vitest';
+import { vi, describe, it, expect, Mock } from 'vitest';
 import { DetailedCard } from './DetailedCard';
 import { fetchDetailedCard } from '../model/services/fetchDetailedCard/fetchDetailedCard.ts';
 
@@ -30,7 +30,7 @@ describe('DetailedCard', () => {
       likes: 42,
     };
 
-    fetchDetailedCard.mockResolvedValue(mockData);
+    (fetchDetailedCard as Mock).mockResolvedValue(mockData);
     render(
       <MemoryRouter>
         <DetailedCard />
@@ -58,7 +58,7 @@ describe('DetailedCard', () => {
       likes: 42,
     };
 
-    fetchDetailedCard.mockResolvedValue(mockData);
+    (fetchDetailedCard as Mock).mockResolvedValue(mockData);
     render(
       <MemoryRouter>
         <DetailedCard />
