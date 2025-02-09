@@ -13,7 +13,12 @@ export const CardListItem = (props: CardListItemProps) => {
   return (
     <div className={cls.item} onClick={() => onClick(id)}>
       <div className={cls['image-container']}>
-        <img className={cls.img} src={urls.small} alt={alt_description}></img>
+        <img
+          data-testid="img"
+          className={cls.img}
+          src={urls.small}
+          alt={alt_description}
+        ></img>
       </div>
       <h3 className={cls.heading}>{alt_description}</h3>
     </div>
