@@ -35,6 +35,7 @@ export const DetailedCard = () => {
       <div className={cls.header}>
         <p>Details</p>
         <Button
+          data-testid="button"
           onClick={() => {
             handleClose();
           }}
