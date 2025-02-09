@@ -1,0 +1,15 @@
+.button {
+  cursor: pointer;
+  color: var(--inverted-primary-color);
+  padding: 6px 16px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  height: max-content;
+  font-family: 'Inter', sans-serif;
+}
+
+.primary {
+  background: var(--primary-color);
+  border-radius: 7px;
+}

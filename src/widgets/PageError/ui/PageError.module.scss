@@ -1,0 +1,8 @@
+.page-error {
+  width: 100%;
+  height: calc(100dvh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

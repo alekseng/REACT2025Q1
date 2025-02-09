@@ -1,0 +1,22 @@
+@use 'variables/global.scss';
+@use '../../shared/styles/fonts/fonts.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: 'Inter', sans-serif;
+}
+
+#root {
+  width: 100%;
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: var(--padding);
+  font-family: 'Inter', sans-serif;
+}
