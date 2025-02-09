@@ -9,6 +9,10 @@ interface CardListProps extends FetchData {
 export const CardList = (props: CardListProps) => {
   const { results, onCardClick } = props;
 
+  if (!results?.length) {
+    return <div className={cls.card}>No data found.</div>;
+  }
+
   return (
     <div className={cls.card}>
       {results?.map((card) => (
