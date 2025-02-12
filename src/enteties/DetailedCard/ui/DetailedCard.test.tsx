@@ -23,7 +23,7 @@ describe('DetailedCard', () => {
   it('renders details after successful fetch', async () => {
     const mockData = {
       created_at: '2024-02-10T00:00:00Z',
-      urls: { full: 'https://example.com/image.jpg' },
+      urls: { regular: 'https://example.com/image.jpg' },
       alt_description: 'Test Image',
       description: 'A beautiful test image',
       user: { name: 'Test User' },

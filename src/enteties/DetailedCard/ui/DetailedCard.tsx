@@ -14,6 +14,7 @@ export const DetailedCard = () => {
 
   useEffect(() => {
     if (id) {
+      setDetail(null);
       fetchDetailedCard(id, navigate).then((data) => {
         setDetail(data);
       });
@@ -46,7 +47,7 @@ export const DetailedCard = () => {
 
       <img
         className={cls.img}
-        src={detail.urls.full}
+        src={detail.urls.regular}
         alt={detail.alt_description}
       />
       <h3 className={cls.heading}>
