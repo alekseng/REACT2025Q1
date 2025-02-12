@@ -1,4 +1,4 @@
-.button {
+.primary {
   cursor: pointer;
   color: var(--inverted-primary-color);
   padding: 6px 16px;
@@ -7,9 +7,37 @@
   outline: none;
   height: max-content;
   font-family: 'Inter', sans-serif;
-}
-
-.primary {
   background: var(--primary-color);
   border-radius: 7px;
+}
+
+.close {
+  position: relative;
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  border: none;
+  background: inherit;
+  cursor: pointer;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 21px;
+    height: 3px;
+    background: var(--primary-color);
+    top: 50%;
+    left: 0;
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 21px;
+    height: 3px;
+    background: var(--primary-color);
+    right: 0;
+    transform: rotate(-45deg);
+  }
 }

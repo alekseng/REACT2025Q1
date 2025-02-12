@@ -5,6 +5,7 @@ import { Result } from '../../../shared/api/types/types.ts';
 import { Button } from '../../../shared/ui/Button/Button.tsx';
 import { fetchDetailedCard } from '../model/services/fetchDetailedCard/fetchDetailedCard.ts';
 import cls from './DetailedCard.module.scss';
+import { ButtonTheme } from '../../../shared/ui/Button/Button.types.ts';
 
 export const DetailedCard = () => {
   const navigate = useNavigate();
@@ -36,13 +37,12 @@ export const DetailedCard = () => {
       <div className={cls.header}>
         <p>Details</p>
         <Button
+          theme={ButtonTheme.CLOSE}
           data-testid="button"
           onClick={() => {
             handleClose();
           }}
-        >
-          Close
-        </Button>
+        ></Button>
       </div>
 
       <img

@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  color: black;
+  color: var(--primary-color);
   padding: var(--padding);
   border-radius: 10px;
 }
@@ -9,9 +9,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--primary-color);
   margin-bottom: 10px;
-  padding: 10px 0;
+  padding: 0 0 10px 0;
 
   > p {
     font-size: 22px;
@@ -21,7 +21,6 @@
 .img {
   max-width: 100%;
   object-fit: cover;
-  border-radius: 10px;
   margin-bottom: 10px;
 }
 

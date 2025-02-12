@@ -20,7 +20,7 @@ export const Button = memo((props: ButtonProps) => {
   return (
     <button
       type="button"
-      className={`${cls.button} ${className} ${cls[theme]}`}
+      className={`${className} ${cls[theme]}`}
       disabled={disabled}
       {...otherProps}
     >
