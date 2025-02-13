@@ -1,8 +1,15 @@
+$primary-color: #000;
+
 :root {
   --bg-color: #e8e8ea;
-  --primary-color: #000000;
+  --primary-color: #000;
   --inverted-primary-color: #e8e8ea;
   --input-border-color: #089700;
+  --scrollbar-color: #c9c7c7;
+  --scrollbar-thumb-color: #656565;
+  --box-shadow-color: #bbbbbb;
+  --primary-color-rgb: #{red($primary-color)}, #{green($primary-color)},
+    #{blue($primary-color)};
   --max-width: 1280px;
   --padding: 20px;
   --header-height: 50px;

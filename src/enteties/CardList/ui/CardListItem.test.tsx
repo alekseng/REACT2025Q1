@@ -10,6 +10,8 @@ describe('CardListItem', () => {
     alt_description: 'Description',
     urls: { small: 'https://test.com/img.jpg' },
     onClick: mockFn,
+    profile_name: 'Test name',
+    profile_img: 'https://test.com/profile/img.jpg',
   };
 
   it('Test render', () => {
@@ -22,7 +24,7 @@ describe('CardListItem', () => {
   it('calls onClick with correct id when clicked', () => {
     render(<CardListItem {...mockCard} />);
 
-    const cardElement = screen.getByText('Description').closest('div');
+    const cardElement = screen.getByText('Test name').closest('div');
     if (cardElement) {
       fireEvent.click(cardElement);
       expect(mockCard.onClick).toHaveBeenCalledWith('1');
