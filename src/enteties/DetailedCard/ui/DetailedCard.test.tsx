@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useParams } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { vi, describe, it, expect, Mock } from 'vitest';
 import { DetailedCard } from './DetailedCard';
@@ -15,11 +15,22 @@ vi.mock('react-router-dom', async () => {
   return {
     ...actual,
     useNavigate: () => mockNavigate,
-    useParams: () => ({ id: 'test-id', page: '1' }),
+    useParams: vi.fn(),
   };
 });
 
 describe('DetailedCard', () => {
+  it('should display Loader when no data', async () => {
+    (useParams as Mock).mockReturnValue({ page: '1' });
+    render(
+      <MemoryRouter>
+        <DetailedCard />
+      </MemoryRouter>
+    );
+
+    const loader = await screen.findByTestId('loader');
+    expect(loader).toBeInTheDocument();
+  });
   it('renders details after successful fetch', async () => {
     const mockData = {
       created_at: '2024-02-10T00:00:00Z',
@@ -29,7 +40,7 @@ describe('DetailedCard', () => {
       user: { name: 'Test User' },
       likes: 42,
     };
-
+    (useParams as Mock).mockReturnValue({ id: 'test-id', page: '1' });
     (fetchDetailedCard as Mock).mockResolvedValue(mockData);
     render(
       <MemoryRouter>
@@ -57,7 +68,7 @@ describe('DetailedCard', () => {
       user: { name: 'Test User' },
       likes: 42,
     };
-
+    (useParams as Mock).mockReturnValue({ id: 'test-id', page: '1' });
     (fetchDetailedCard as Mock).mockResolvedValue(mockData);
     render(
       <MemoryRouter>
@@ -71,12 +82,12 @@ describe('DetailedCard', () => {
   });
 
   it('navigates back on close button click', async () => {
+    (useParams as Mock).mockReturnValue({ id: 'test-id', page: '1' });
     render(
       <MemoryRouter>
         <DetailedCard />
       </MemoryRouter>
     );
-
     const closeButton = await screen.findByTestId('button');
     expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);

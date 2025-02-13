@@ -27,7 +27,7 @@ export const DetailedCard = () => {
   };
 
   if (!detail) {
-    return <Loader />;
+    return <Loader data-testid="loader" />;
   }
 
   const date = new Date(detail.created_at).toLocaleDateString();
