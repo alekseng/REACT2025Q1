@@ -20,7 +20,11 @@ export const CardListItem = (props: CardListItemProps) => {
   };
 
   return (
-    <div className={cls.item} onClick={handleClick}>
+    <div
+      data-testid="item-container"
+      className={cls.item}
+      onClick={handleClick}
+    >
       <div className={cls['image-container']}>
         <img
           data-testid="img"

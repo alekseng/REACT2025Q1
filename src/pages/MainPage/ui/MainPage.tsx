@@ -11,9 +11,9 @@ import cls from './MainPage.module.scss';
 
 export const MainPage = () => {
   const [data, setData] = useState<Result[]>([]);
-  const [query, setQuery] = useLocalStorage('aleksengQuery');
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
+  const [query, setQuery] = useLocalStorage('aleksengQuery');
   const { page } = useParams<{ page: string }>();
   const navigate = useNavigate();
 
@@ -78,7 +78,7 @@ export const MainPage = () => {
 
       <div className={cls.container}>
         {loading ? (
-          <Loader />
+          <Loader data-testid="loader" />
         ) : (
           <CardList results={data} onCardClick={handleCardClick} />
         )}
