@@ -7,16 +7,15 @@
   box-sizing: border-box;
 }
 
-body {
+.app {
   background-color: var(--bg-color);
   font-family: 'Inter', sans-serif;
-}
-
-#root {
-  width: 100%;
-  max-width: var(--max-width);
+  min-height: 100dvh;
   height: 100%;
-  margin: 0 auto;
   padding: var(--padding);
-  font-family: 'Inter', sans-serif;
+
+  > * {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
 }

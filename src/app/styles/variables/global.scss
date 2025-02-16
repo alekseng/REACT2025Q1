@@ -1,16 +1,24 @@
-$primary-color: #000;
-
 :root {
-  --bg-color: #e8e8ea;
-  --primary-color: #000;
-  --inverted-primary-color: #e8e8ea;
+  --max-width: 1280px;
+  --padding: 20px;
+  --header-height: 50px;
+
+  --overlay-text-color: #ededed;
+  --overlay-bg-color: rgba(0, 0, 0, 0.5);
   --input-border-color: #089700;
   --scrollbar-color: #c9c7c7;
   --scrollbar-thumb-color: #656565;
   --box-shadow-color: #bbbbbb;
-  --primary-color-rgb: #{red($primary-color)}, #{green($primary-color)},
-    #{blue($primary-color)};
-  --max-width: 1280px;
-  --padding: 20px;
-  --header-height: 50px;
+}
+
+.light {
+  --bg-color: #ededed;
+  --primary-color: #000;
+  --inverted-primary-color: #ededed;
+}
+
+.dark {
+  --bg-color: #000;
+  --primary-color: #ededed;
+  --inverted-primary-color: #000;
 }
