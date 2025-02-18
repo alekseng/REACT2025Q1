@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FetchData } from '../types/types.ts';
+import { FetchData, Result } from '../types/types.ts';
 import { ID } from './fetchData.ts';
 
 interface QueryParams {
@@ -25,7 +25,12 @@ export const photosApi = createApi({
         params: { page, query, per_page, orientation },
       }),
     }),
+    fetchDetailsPhoto: builder.query<Result, { id: string | undefined }>({
+      query: ({ id }) => ({
+        url: `photos/${id}`,
+      }),
+    }),
   }),
 });
 
-export const { useFetchPhotosQuery } = photosApi;
+export const { useFetchPhotosQuery, useFetchDetailsPhotoQuery } = photosApi;
