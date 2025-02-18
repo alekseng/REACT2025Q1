@@ -1,25 +1,36 @@
 import cls from './CardList.module.scss';
-import { FetchData } from '../../../shared/api/types/types.ts';
 import { CardListItem } from './CardListItem.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
+import { photosApi } from '../../../shared/api/fetchData/photosAPI.ts';
+import { Loader } from '../../../shared/ui/Loader/Loader.tsx';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/providers/StoreProvider/config/store.ts';
 
-interface CardListProps extends FetchData {
-  onCardClick: (id: string) => void;
-}
-
-export const CardList = (props: CardListProps) => {
-  const { results, onCardClick } = props;
+export const CardList = () => {
+  const query = useSelector((state: RootState) => state.search.query);
   const navigate = useNavigate();
   const { page } = useParams<{ page: string }>();
   const { id } = useParams<{ id: string }>();
-
-  if (!results?.length) {
-    return <div className={cls.card}>No data found.</div>;
-  }
+  const { data, isFetching } = photosApi.useFetchPhotosQuery({
+    page: page,
+    query: query,
+  });
 
   const handleClickOnCardList = () => {
     navigate(`/page/${page}`);
   };
+
+  if (isFetching) {
+    return <Loader data-testid="loader" />;
+  }
+
+  if (data?.results?.length === 0 && !isFetching) {
+    return (
+      <p className={cls['wrong-query']}>
+        We did not find anything, try another query.
+      </p>
+    );
+  }
 
   return (
     <div
@@ -27,7 +38,7 @@ export const CardList = (props: CardListProps) => {
       onClick={() => handleClickOnCardList()}
       className={id ? cls['card-scrollable'] : cls.card}
     >
-      {results?.map((card) => (
+      {data?.results?.map((card) => (
         <CardListItem
           key={card.id}
           alt_description={card.alt_description}
@@ -35,7 +46,6 @@ export const CardList = (props: CardListProps) => {
           urls={card.urls}
           profile_img={card.user.profile_image.small}
           id={card.id}
-          onClick={onCardClick}
         />
       ))}
     </div>

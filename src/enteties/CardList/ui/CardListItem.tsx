@@ -1,22 +1,22 @@
 import React from 'react';
 import cls from './CardListItem.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface CardListItemProps {
   profile_name: string;
   alt_description: string;
   urls: { small: string };
   id: string;
-  onClick: (id: string) => void;
   profile_img: string;
 }
 
 export const CardListItem = (props: CardListItemProps) => {
-  const { alt_description, profile_name, urls, id, onClick, profile_img } =
-    props;
+  const { alt_description, profile_name, urls, id, profile_img } = props;
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    onClick(id);
+    navigate(`detail/${id}`);
   };
 
   return (

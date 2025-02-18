@@ -1,27 +1,39 @@
 import cls from './Pagination.module.scss';
 import { Button } from '../../../shared/ui/Button/Button.tsx';
+import { useNavigate, useParams } from 'react-router-dom';
+import { photosApi } from '../../../shared/api/fetchData/photosAPI.ts';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/providers/StoreProvider/config/store.ts';
 
-interface PaginationProps {
-  totalPage: number;
-  currentPage: number;
-  onPageChange: (newPage: number) => void;
-}
+export const Pagination = () => {
+  const query = useSelector((state: RootState) => state.search.query);
+  const { page } = useParams<{ page: string }>();
+  const navigate = useNavigate();
+  const { data } = photosApi.useFetchPhotosQuery({
+    page: page,
+    query: query,
+  });
 
-export const Pagination = (props: PaginationProps) => {
-  const { totalPage, currentPage, onPageChange } = props;
+  const handlePageChange = (newPage: number) => {
+    navigate(`/page/${newPage}`);
+  };
+
+  if (!data?.total_pages) {
+    return '';
+  }
 
   return (
     <div data-testid="pagination" className={cls.pagination}>
       <Button
-        disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
+        disabled={Number(page) === 1}
+        onClick={() => handlePageChange(Number(page) - 1)}
       >
         {'<'}
       </Button>
-      <span> {currentPage} </span> / <span> {totalPage} </span>
+      <span> {page} </span> / <span> {data?.total_pages} </span>
       <Button
-        disabled={currentPage >= totalPage}
-        onClick={() => onPageChange(currentPage + 1)}
+        disabled={Number(page) >= data?.total_pages}
+        onClick={() => handlePageChange(Number(page) + 1)}
       >
         {'>'}
       </Button>

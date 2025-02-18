@@ -4,17 +4,20 @@ import './app/styles/index.scss';
 import App from './app/App.tsx';
 import { ErrorBoundary } from './app/providers/ErrorBoundary';
 import { ThemeProvider } from './app/providers/ThemeProvider';
+import { StoreProvider } from './app/providers/StoreProvider';
 
 const root = document.getElementById('root');
 
 if (root) {
   createRoot(root).render(
     <StrictMode>
-      <ErrorBoundary>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </ErrorBoundary>
+      <StoreProvider>
+        <ErrorBoundary>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </ErrorBoundary>
+      </StoreProvider>
     </StrictMode>
   );
 } else {
