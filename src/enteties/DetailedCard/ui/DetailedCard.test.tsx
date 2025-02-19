@@ -1,25 +1,19 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, useParams } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { vi, describe, it, expect, Mock } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { DetailedCard } from './DetailedCard';
 import { StoreProvider } from '../../../app/providers/StoreProvider';
 import { server } from '../../../shared/mocks/server.ts';
 import { http, HttpResponse } from 'msw';
-
-const mockNavigate = vi.fn();
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useParams: vi.fn(),
-  };
-});
+import {
+  mockNavigate,
+  mockParams,
+} from '../../../shared/config/vitest/setupTests.ts';
 
 describe('DetailedCard', () => {
   it('should display Loader when no data', async () => {
-    (useParams as Mock).mockReturnValue({ page: '1' });
+    mockParams.mockReturnValue({ page: '1' });
     render(
       <StoreProvider>
         <MemoryRouter>
@@ -33,7 +27,7 @@ describe('DetailedCard', () => {
   });
 
   it('renders details after successful fetch', async () => {
-    (useParams as Mock).mockReturnValue({ page: '1' });
+    mockParams.mockReturnValue({ page: '1' });
     render(
       <StoreProvider>
         <MemoryRouter>
@@ -55,7 +49,7 @@ describe('DetailedCard', () => {
   });
 
   it('renders details with no description', async () => {
-    (useParams as Mock).mockReturnValue({ id: 'test-id', page: '1' });
+    mockParams.mockReturnValue({ id: 'test-id', page: '1' });
 
     server.use(
       http.get('https://api.unsplash.com/photos/:id', async () => {
@@ -84,7 +78,7 @@ describe('DetailedCard', () => {
   });
 
   it('navigates back on close button click', async () => {
-    (useParams as Mock).mockReturnValue({ id: 'test-id', page: '1' });
+    mockParams.mockReturnValue({ id: 'test-id', page: '1' });
 
     render(
       <StoreProvider>

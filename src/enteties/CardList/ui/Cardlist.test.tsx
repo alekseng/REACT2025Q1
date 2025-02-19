@@ -1,42 +1,44 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { CardList } from './CardList';
-import { describe, it, expect, vi, Mock } from 'vitest';
-import { emptyMockResults, mockProps } from '../types/testTypes.ts';
-import { MemoryRouter, useParams } from 'react-router-dom';
+import { describe, it, expect } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { StoreProvider } from '../../../app/providers/StoreProvider';
 import cls from './CardList.module.scss';
-
-const mockNavigate = vi.fn();
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useParams: vi.fn(),
-  };
-});
+import { server } from '../../../shared/mocks/server.ts';
+import { http, HttpResponse } from 'msw';
+import {
+  mockNavigate,
+  mockParams,
+} from '../../../shared/config/vitest/setupTests.ts';
 
 describe('CardList', () => {
-  it('Test render', () => {
-    (useParams as Mock).mockReturnValue({ page: '1' });
+  it('Test render', async () => {
+    mockParams.mockReturnValue({ page: '1' });
     render(
-      <MemoryRouter>
-        <CardList results={mockProps.results} onCardClick={() => {}} />
-      </MemoryRouter>
+      <StoreProvider>
+        <MemoryRouter>
+          <CardList />
+        </MemoryRouter>
+      </StoreProvider>
     );
 
-    const image = screen.getByAltText('Description 1');
-    expect(image).toBeInTheDocument();
+    await waitFor(() => {
+      const image = screen.getByAltText('Description 1');
+      expect(image).toBeInTheDocument();
 
-    const profileImage = screen.getByAltText('User');
-    expect(profileImage).toBeInTheDocument();
+      const profileImage = screen.getByAltText('User');
+      expect(profileImage).toBeInTheDocument();
+    });
   });
 
-  it('should navigate if clicked by list ', async () => {
+  it('should close detailed card if clicked by list ', async () => {
     render(
-      <MemoryRouter>
-        <CardList results={mockProps.results} onCardClick={() => {}} />
-      </MemoryRouter>
+      <StoreProvider>
+        <MemoryRouter>
+          <CardList />
+        </MemoryRouter>
+      </StoreProvider>
     );
     const cardList = await screen.findByTestId('card-list');
     expect(cardList).toBeInTheDocument();
@@ -46,11 +48,13 @@ describe('CardList', () => {
   });
 
   it('should apply card-scrollable class when id', async () => {
-    (useParams as Mock).mockReturnValue({ id: 'test-id' });
+    mockParams.mockReturnValue({ id: 'test-id' });
     render(
-      <MemoryRouter>
-        <CardList results={mockProps.results} onCardClick={() => {}} />
-      </MemoryRouter>
+      <StoreProvider>
+        <MemoryRouter>
+          <CardList />
+        </MemoryRouter>
+      </StoreProvider>
     );
 
     const cardList = await screen.findByTestId('card-list');
@@ -59,11 +63,13 @@ describe('CardList', () => {
   });
 
   it('should apply card class when not id', async () => {
-    (useParams as Mock).mockReturnValue({});
+    mockParams.mockReturnValue({});
     render(
-      <MemoryRouter>
-        <CardList results={mockProps.results} onCardClick={() => {}} />
-      </MemoryRouter>
+      <StoreProvider>
+        <MemoryRouter>
+          <CardList />
+        </MemoryRouter>
+      </StoreProvider>
     );
 
     const cardList = await screen.findByTestId('card-list');
@@ -71,16 +77,31 @@ describe('CardList', () => {
     expect(cardList).toHaveClass(cls['card']);
   });
 
-  it('Should work correct with empty result', () => {
-    (useParams as Mock).mockReturnValue({ page: '1' });
-    render(
-      <MemoryRouter>
-        <CardList results={emptyMockResults} onCardClick={() => {}} />)
-      </MemoryRouter>
+  it('should display message when no data', async () => {
+    mockParams.mockReturnValue({ page: '1' });
+
+    server.use(
+      http.get('https://api.unsplash.com/search/photos', async () => {
+        return HttpResponse.json({
+          results: [],
+          total: 0,
+          total_pages: 0,
+        });
+      })
     );
 
-    const text = 'No data found.';
+    render(
+      <StoreProvider>
+        <MemoryRouter>
+          <CardList />
+        </MemoryRouter>
+      </StoreProvider>
+    );
 
-    expect(screen.getByText(text)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText('We did not find anything, try another query.')
+      ).toBeInTheDocument();
+    });
   });
 });
