@@ -3,6 +3,7 @@ import { CardListItem } from './CardListItem';
 import { describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import { mockNavigate } from '../../../shared/config/vitest/setupTests.ts';
+import { StoreProvider } from '../../../app/providers/StoreProvider';
 
 describe('CardListItem', () => {
   const mockCard = {
@@ -15,9 +16,11 @@ describe('CardListItem', () => {
 
   it('Test render', () => {
     render(
-      <MemoryRouter>
-        <CardListItem {...mockCard} />
-      </MemoryRouter>
+      <StoreProvider>
+        <MemoryRouter>
+          <CardListItem {...mockCard} />
+        </MemoryRouter>
+      </StoreProvider>
     );
     const imgElement = screen.getByTestId('img');
     expect(imgElement).toBeInTheDocument();
@@ -26,12 +29,26 @@ describe('CardListItem', () => {
 
   it('calls onClick with correct id when clicked', () => {
     render(
-      <MemoryRouter>
-        <CardListItem {...mockCard} />
-      </MemoryRouter>
+      <StoreProvider>
+        <MemoryRouter>
+          <CardListItem {...mockCard} />
+        </MemoryRouter>
+      </StoreProvider>
     );
 
     fireEvent.click(screen.getByTestId('item-container'));
     expect(mockNavigate).toHaveBeenCalledWith('detail/1');
+  });
+
+  it('should call onClick when the checkbox is clicked', () => {
+    render(
+      <StoreProvider>
+        <MemoryRouter>
+          <CardListItem {...mockCard} />
+        </MemoryRouter>
+      </StoreProvider>
+    );
+
+    fireEvent.click(screen.getByTestId('checkbox'));
   });
 });
