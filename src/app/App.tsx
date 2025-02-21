@@ -1,6 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router/router.tsx';
 import { useTheme } from './providers/ThemeProvider';
+import { CheckedCardsBar } from '../features/CheckedCardsBar';
 
 function App() {
   const { theme } = useTheme();
@@ -8,6 +9,7 @@ function App() {
   return (
     <div className={`app ${theme}`}>
       <RouterProvider router={router} />
+      <CheckedCardsBar />
     </div>
   );
 }
