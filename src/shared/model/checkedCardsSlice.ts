@@ -29,6 +29,9 @@ const checkedCardsSlice = createSlice({
         state.checkedCards.push(action.payload);
       }
     },
+    resetCards: (state) => {
+      state.checkedCards.length = 0;
+    },
   },
 });
 

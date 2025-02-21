@@ -1,13 +1,18 @@
 import cls from './CheckedCardsBar.module.scss';
 import { Button } from '../../../shared/ui/Button/Button.tsx';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../app/providers/StoreProvider/config/store.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  AppDispatch,
+  RootState,
+} from '../../../app/providers/StoreProvider/config/store.ts';
 import { useEffect, useRef, useState } from 'react';
+import { checkedCardsActions } from '../../../shared/model/checkedCardsSlice.ts';
 
 export const CheckedCardsBar = () => {
   const items = useSelector(
     (state: RootState) => state.checkedCards.checkedCards.length
   );
+  const dispatch = useDispatch<AppDispatch>();
 
   const [isMounted, setIsMounted] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -30,6 +35,10 @@ export const CheckedCardsBar = () => {
     };
   }, [items]);
 
+  const handleUnselect = () => {
+    dispatch(checkedCardsActions.resetCards());
+  };
+
   if (!isMounted) return null;
 
   return (
@@ -39,7 +48,7 @@ export const CheckedCardsBar = () => {
     >
       <div>{`${items} ${items === 1 ? 'item is' : 'items are'} selected`}</div>
       <div className={cls['buttons-container']}>
-        <Button>Unselect all</Button>
+        <Button onClick={handleUnselect}>Unselect all</Button>
         <Button>Download</Button>
       </div>
     </div>
