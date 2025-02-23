@@ -171,3 +171,11 @@ export interface ResultTopicSubmissions {
 export interface Nature {
   status: Status;
 }
+
+export interface CheckedCards {
+  profile_name: string;
+  alt_description: string;
+  url: string;
+  id: string;
+  profile_img: string;
+}

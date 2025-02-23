@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Result } from '../api/types/types.ts';
+import { CheckedCards } from '../api/types/types.ts';
 
 interface cards {
   id: string;
-  card: Result;
+  card: CheckedCards;
 }
 
 interface checkedCardsSlice {

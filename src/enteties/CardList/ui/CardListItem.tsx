@@ -41,7 +41,7 @@ export const CardListItem = (props: CardListItemProps) => {
         card: {
           profile_name: profile_name,
           alt_description: alt_description,
-          urls: { small: urls.small },
+          url: urls.small,
           id: id,
           profile_img: profile_img,
         },
