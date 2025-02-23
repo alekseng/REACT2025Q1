@@ -1,22 +1,40 @@
-.card {
+.card-scrollable {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   margin-top: 20px;
   width: 100%;
-  min-width: 400px;
-  max-width: 670px;
+  max-width: 400px;
   height: calc(100dvh - var(--header-height) - var(--padding) - 90px);
   overflow-y: scroll;
 }
 
-.card::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-  background-color: #c9c7c7;
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  min-width: 400px;
 }
 
-.card::-webkit-scrollbar-thumb {
-  background-color: #656565;
+.card-scrollable::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
+  background-color: var(--scrollbar-color);
+}
+
+.card-scrollable::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  width: 4px;
+}
+
+.wrong-query {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  height: calc(100dvh - var(--header-height) - var(--header-height));
+  margin: 0 auto;
 }

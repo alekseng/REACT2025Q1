@@ -1,26 +1,47 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { vi, describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { Pagination } from './Pagination';
+import { MemoryRouter } from 'react-router-dom';
+import { StoreProvider } from '../../../app/providers/StoreProvider';
+import {
+  mockNavigate,
+  mockParams,
+} from '../../../shared/config/vitest/setupTests.ts';
 
-const mockFn = vi.fn();
+describe('Pagination', async () => {
+  mockParams.mockReturnValue({ page: '1' });
 
-describe('Pagination', () => {
   it('Test render', async () => {
-    render(<Pagination currentPage={2} onPageChange={mockFn} totalPage={10} />);
+    render(
+      <StoreProvider>
+        <MemoryRouter>
+          <Pagination />
+        </MemoryRouter>
+      </StoreProvider>
+    );
 
-    expect(screen.getByTestId('pagination')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('pagination')).toBeInTheDocument();
+    });
   });
 
   it('Test click by buttons', async () => {
-    render(<Pagination currentPage={2} onPageChange={mockFn} totalPage={10} />);
+    mockParams.mockReturnValue({ page: '2' });
+    render(
+      <StoreProvider>
+        <MemoryRouter>
+          <Pagination />
+        </MemoryRouter>
+      </StoreProvider>
+    );
 
-    const increaseBtn = screen.getByText('>');
-    await userEvent.click(increaseBtn);
-    expect(mockFn).toHaveBeenCalledWith(3);
+    await waitFor(() => {
+      userEvent.click(screen.getByText('>'));
+      expect(mockNavigate).toHaveBeenCalledWith('/page/3');
 
-    const decreaseBtn = screen.getByText('<');
-    await userEvent.click(decreaseBtn);
-    expect(mockFn).toHaveBeenCalledWith(1);
+      userEvent.click(screen.getByText('<'));
+      expect(mockNavigate).toHaveBeenCalledWith('/page/1');
+    });
   });
 });

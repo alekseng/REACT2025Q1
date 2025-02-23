@@ -37,26 +37,12 @@ const mockUser: User = {
   social: undefined,
 };
 
-const mockResults: Result[] = [
+export const mockResults: Result[] = [
   {
     id: '1',
     alt_description: 'Description 1',
     urls: {
       small: 'url1',
-      raw: '',
-      full: '',
-      regular: '',
-      thumb: '',
-      small_s3: '',
-    },
-    created_at: new Date('2024-01-01T00:00:00Z'),
-    user: mockUser,
-  },
-  {
-    id: '2',
-    alt_description: 'Description 2',
-    urls: {
-      small: 'url2',
       raw: '',
       full: '',
       regular: '',
