@@ -8,8 +8,8 @@ export const Header = memo(() => {
   return (
     <header data-testid="header" className={cls.header}>
       <BugButton />
-      <HeaderForm />
       <ThemeSwitcher />
+      <HeaderForm />
     </header>
   );
 });

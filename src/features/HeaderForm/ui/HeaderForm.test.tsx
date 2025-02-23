@@ -31,7 +31,7 @@ describe('HeaderForm', () => {
     const input = screen.getByTestId('input');
     fireEvent.change(input, { target: { value: 'cats' } });
 
-    const sendBtn = screen.getByText('Search');
+    const sendBtn = screen.getByTestId('search');
     await userEvent.click(sendBtn);
 
     expect(mockNavigate).toHaveBeenCalledWith('/page/1');

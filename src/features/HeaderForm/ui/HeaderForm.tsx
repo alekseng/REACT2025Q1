@@ -10,6 +10,7 @@ import {
   RootState,
 } from '../../../app/providers/StoreProvider/config/store.ts';
 import { searchActions } from '../../../shared/model/searchSlice.ts';
+import { ButtonTheme } from '../../../shared/ui/Button/Button.types.ts';
 
 export const HeaderForm = () => {
   const [newQuery, setNewQuery] = useState('');
@@ -35,7 +36,7 @@ export const HeaderForm = () => {
         value={newQuery}
         placeholder="Search..."
       />
-      <Button type="submit">Search</Button>
+      <Button data-testid="search" theme={ButtonTheme.SEARCH} type="submit" />
     </form>
   );
 };

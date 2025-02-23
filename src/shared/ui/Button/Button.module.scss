@@ -20,7 +20,7 @@
   background: inherit;
   cursor: pointer;
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     width: 21px;
@@ -31,7 +31,7 @@
     transform: rotate(45deg);
   }
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     width: 21px;
@@ -40,4 +40,65 @@
     right: 0;
     transform: rotate(-45deg);
   }
+}
+
+.search {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  right: 15px;
+  top: calc(50% - 7.5px);
+  cursor: pointer;
+  z-index: 7;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  background: inherit;
+
+  &:before {
+    box-sizing: border-box;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
+    top: 0;
+    left: 0;
+    background: inherit;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-image: initial;
+    border-radius: 50%;
+  }
+
+  &:after {
+    box-sizing: border-box;
+    position: absolute;
+    content: '';
+    transition: 0.3s;
+    width: 6px;
+    height: 2px;
+    bottom: -1px;
+    right: -3px;
+    transform: rotate(45deg);
+    background: black;
+  }
+}
+
+.clear {
+  border: none;
+  background: inherit;
+  cursor: pointer;
+}
+
+.circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--inverted-primary-color);
+  border: none;
+  cursor: pointer;
 }

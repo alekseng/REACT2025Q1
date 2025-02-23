@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { photosApi } from '../../../shared/api/fetchData/photosAPI.ts';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/providers/StoreProvider/config/store.ts';
+import { ButtonTheme } from '../../../shared/ui/Button/Button.types.ts';
 
 export const Pagination = () => {
   const query = useSelector((state: RootState) => state.search.query);
@@ -25,6 +26,7 @@ export const Pagination = () => {
   return (
     <div data-testid="pagination" className={cls.pagination}>
       <Button
+        theme={ButtonTheme.CIRCLE}
         disabled={Number(page) === 1}
         onClick={() => handlePageChange(Number(page) - 1)}
       >
@@ -32,6 +34,7 @@ export const Pagination = () => {
       </Button>
       <span> {page} </span> / <span> {data?.total_pages} </span>
       <Button
+        theme={ButtonTheme.CIRCLE}
         disabled={Number(page) >= data?.total_pages}
         onClick={() => handlePageChange(Number(page) + 1)}
       >
