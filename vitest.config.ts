@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import svgr from 'vite-plugin-svgr';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   test: {
@@ -14,10 +15,11 @@ export default defineConfig({
         '**/*.test.tsx',
         '**/*.spec.tsx',
         'src/__tests__/setup.ts',
-        'src/app/App.tsx',
-        'src/main.tsx',
       ],
     },
+    alias: {
+      '\\.svg\\?react$': './src/shared/mocks/svgMock.ts',
+    },
   },
-  plugins: [svgr()],
+  plugins: [svgr(), react()],
 });

@@ -1,16 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Header } from './Header';
-import { MemoryRouter } from 'react-router-dom';
 import { StoreProvider } from '../../../app/providers/StoreProvider';
+
+vi.mock('next/router', () => ({
+  useRouter: vi.fn().mockReturnValue({
+    push: vi.fn(),
+  }),
+}));
 
 describe('Header', () => {
   it('Test render', async () => {
     render(
       <StoreProvider>
-        <MemoryRouter>
-          <Header />
-        </MemoryRouter>
+        <Header />
       </StoreProvider>
     );
 

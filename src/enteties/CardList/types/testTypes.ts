@@ -58,4 +58,6 @@ export const emptyMockResults: Result[] = [];
 
 export const mockProps = {
   results: mockResults,
+  total: 10,
+  total_pages: 3,
 };
