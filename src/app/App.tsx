@@ -1,7 +1,9 @@
 import './styles/App.css';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router/router.tsx';
 
 function App() {
-  return <h1>React 2025Q1</h1>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
