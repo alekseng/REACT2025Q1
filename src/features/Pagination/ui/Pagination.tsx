@@ -1,22 +1,21 @@
+import { FetchData } from '@/shared/api/types/types.ts';
 import cls from './Pagination.module.scss';
 import { Button } from '../../../shared/ui/Button/Button.tsx';
-import { useNavigate, useParams } from 'react-router-dom';
-import { photosApi } from '../../../shared/api/fetchData/photosAPI.ts';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../app/providers/StoreProvider/config/store.ts';
+import { useRouter } from 'next/router';
 import { ButtonTheme } from '../../../shared/ui/Button/Button.types.ts';
 
-export const Pagination = () => {
-  const query = useSelector((state: RootState) => state.search.query);
-  const { page } = useParams<{ page: string }>();
-  const navigate = useNavigate();
-  const { data } = photosApi.useFetchPhotosQuery({
-    page: page,
-    query: query,
-  });
+interface PaginationProps {
+  data: FetchData;
+  page: number;
+  query: string;
+}
+
+export const Pagination = (props: PaginationProps) => {
+  const { data, page, query } = props;
+  const router = useRouter();
 
   const handlePageChange = (newPage: number) => {
-    navigate(`/page/${newPage}`);
+    router.push(`/?page=${newPage}&query=${query}`);
   };
 
   if (!data?.total_pages) {

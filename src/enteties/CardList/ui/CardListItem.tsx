@@ -1,6 +1,5 @@
 import React from 'react';
 import cls from './CardListItem.module.scss';
-import { useNavigate } from 'react-router-dom';
 import { Checkbox } from '../../../shared/ui/Checkbox/Checkbox.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -8,8 +7,11 @@ import {
   RootState,
 } from '../../../app/providers/StoreProvider/config/store.ts';
 import { checkedCardsActions } from '../../../shared/model/checkedCardsSlice.ts';
+import { useRouter } from 'next/router';
 
 interface CardListItemProps {
+  page: number;
+  query: string;
   profile_name: string;
   alt_description: string;
   urls: { small: string };
@@ -18,8 +20,10 @@ interface CardListItemProps {
 }
 
 export const CardListItem = (props: CardListItemProps) => {
-  const { alt_description, profile_name, urls, id, profile_img } = props;
-  const navigate = useNavigate();
+  const { alt_description, profile_name, urls, id, profile_img, query, page } =
+    props;
+
+  const router = useRouter();
   const isChecked = useSelector((state: RootState) =>
     state.checkedCards.checkedCards.some((e) => e.id === id)
   );
@@ -27,7 +31,7 @@ export const CardListItem = (props: CardListItemProps) => {
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    navigate(`detail/${id}`);
+    router.push(`/?page=${page}&query=${query}&detail=${id}`);
   };
 
   const handleCheckboxClick = (event: React.MouseEvent) => {

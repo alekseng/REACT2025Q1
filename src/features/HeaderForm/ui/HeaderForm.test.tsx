@@ -1,18 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { HeaderForm } from './HeaderForm';
-import { MemoryRouter } from 'react-router-dom';
 import { StoreProvider } from '../../../app/providers/StoreProvider';
-import { mockNavigate } from '../../../shared/config/vitest/setupTests.ts';
+import { useRouter } from 'next/router';
+
+vi.mock('next/router', () => ({
+  useRouter: vi.fn().mockReturnValue({
+    push: vi.fn(),
+  }),
+}));
 
 describe('HeaderForm', () => {
   it('Test render', async () => {
     render(
       <StoreProvider>
-        <MemoryRouter>
-          <HeaderForm />
-        </MemoryRouter>
+        <HeaderForm />
       </StoreProvider>
     );
 
@@ -20,11 +23,10 @@ describe('HeaderForm', () => {
   });
 
   it('it should change query', async () => {
+    const { push } = useRouter();
     render(
       <StoreProvider>
-        <MemoryRouter>
-          <HeaderForm />
-        </MemoryRouter>
+        <HeaderForm />
       </StoreProvider>
     );
 
@@ -34,6 +36,8 @@ describe('HeaderForm', () => {
     const sendBtn = screen.getByTestId('search');
     await userEvent.click(sendBtn);
 
-    expect(mockNavigate).toHaveBeenCalledWith('/page/1');
+    expect(push).toHaveBeenCalledWith(`/?page=1&query=cats`, undefined, {
+      shallow: false,
+    });
   });
 });

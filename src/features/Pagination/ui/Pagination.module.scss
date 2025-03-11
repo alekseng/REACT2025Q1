@@ -1,5 +1,22 @@
 .pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 10px auto;
   width: max-content;
   color: var(--primary-color);
+}
+
+.circle {
+  display: block;
+  text-align: center;
+  align-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--inverted-primary-color);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
 }

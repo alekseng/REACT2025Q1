@@ -5,7 +5,7 @@ interface SearchSlice {
 }
 
 const initialState: SearchSlice = {
-  query: localStorage.getItem('aleksengQuery') || 'cheetah',
+  query: 'cheetah',
 };
 
 const searchSlice = createSlice({

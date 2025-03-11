@@ -1,23 +1,22 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Pagination } from './Pagination';
-import { MemoryRouter } from 'react-router-dom';
 import { StoreProvider } from '../../../app/providers/StoreProvider';
-import {
-  mockNavigate,
-  mockParams,
-} from '../../../shared/config/vitest/setupTests.ts';
+import { mockProps } from '../../../enteties/CardList/types/testTypes.ts';
+import { useRouter } from 'next/router';
+
+vi.mock('next/router', () => ({
+  useRouter: vi.fn().mockReturnValue({
+    push: vi.fn(),
+  }),
+}));
 
 describe('Pagination', async () => {
-  mockParams.mockReturnValue({ page: '1' });
-
   it('Test render', async () => {
     render(
       <StoreProvider>
-        <MemoryRouter>
-          <Pagination />
-        </MemoryRouter>
+        <Pagination query="asd" page={2} data={mockProps} />
       </StoreProvider>
     );
 
@@ -27,21 +26,21 @@ describe('Pagination', async () => {
   });
 
   it('Test click by buttons', async () => {
-    mockParams.mockReturnValue({ page: '2' });
+    const { push } = useRouter();
     render(
       <StoreProvider>
-        <MemoryRouter>
-          <Pagination />
-        </MemoryRouter>
+        <Pagination query="asd" page={2} data={mockProps} />
       </StoreProvider>
     );
 
+    userEvent.click(screen.getByText('>'));
     await waitFor(() => {
-      userEvent.click(screen.getByText('>'));
-      expect(mockNavigate).toHaveBeenCalledWith('/page/3');
+      expect(push).toHaveBeenCalledWith('/?page=3&query=asd');
+    });
 
-      userEvent.click(screen.getByText('<'));
-      expect(mockNavigate).toHaveBeenCalledWith('/page/1');
+    userEvent.click(screen.getByText('<'));
+    await waitFor(() => {
+      expect(push).toHaveBeenCalledWith('/?page=1&query=asd');
     });
   });
 });
