@@ -1,8 +1,14 @@
 import cls from './UncontrolledForm.module.scss';
 import { Link } from 'react-router-dom';
 import React, { useRef } from 'react';
+import { countryList } from '../../../shared/constants/countries.ts';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../app/providers/StoreProvider/config/store.ts';
+import { formActions } from '../../../shared/model/formSlice.ts';
 
 export const UncontrolledForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -15,7 +21,19 @@ export const UncontrolledForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Submitting...');
+
+    dispatch(
+      formActions.addForm({
+        name: nameRef.current?.value,
+        age: ageRef.current?.valueAsNumber,
+        email: emailRef.current?.value,
+        password: passwordRef.current?.value,
+        gender: genderRef.current?.value,
+        picture: pictureRef.current?.files,
+        country: countryRef.current?.value,
+        terms: termsRef.current?.checked,
+      })
+    );
   };
   return (
     <>
@@ -67,7 +85,19 @@ export const UncontrolledForm = () => {
 
         <div className={cls.item}>
           <label htmlFor="country">Country</label>
-          <input type="text" ref={countryRef} id="country" name="country" />
+          <input
+            type="text"
+            ref={countryRef}
+            id="country"
+            name="country"
+            list="country-list"
+            autoComplete="country-name"
+          />
+          <datalist className={cls['country-list']} id="country-list">
+            {countryList.map((country) => (
+              <option key={country} value={country} />
+            ))}
+          </datalist>
         </div>
 
         <div className={cls.item}>
