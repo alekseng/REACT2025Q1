@@ -7,6 +7,7 @@ import { AppDispatch } from '../../../app/providers/StoreProvider/config/store.t
 import { formActions } from '../../../shared/model/formSlice.ts';
 import { formSchema } from '../../../shared/lib/validation/formSchema.ts';
 import * as yup from 'yup';
+import { convertImageToBase64 } from '../../../shared/lib/file/convertImageToBase64.ts';
 
 export const UncontrolledForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,6 +42,12 @@ export const UncontrolledForm = () => {
 
     try {
       await formSchema.validate(formValues, { abortEarly: false });
+      let img = '';
+
+      if (formValues.picture) {
+        img = await convertImageToBase64(formValues.picture[0]);
+      }
+
       dispatch(
         formActions.addForm({
           name: nameRef.current?.value,
@@ -48,7 +55,7 @@ export const UncontrolledForm = () => {
           email: emailRef.current?.value,
           password: passwordRef.current?.value,
           gender: genderRef.current?.value,
-          picture: pictureRef.current?.files,
+          picture: img,
           country: countryRef.current?.value,
           terms: termsRef.current?.checked,
         })
