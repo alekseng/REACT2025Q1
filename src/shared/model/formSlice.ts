@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface Form {
-  name: string | undefined;
-  age: number | undefined;
-  email: string | undefined;
-  password: string | undefined;
-  gender: string | undefined;
+export interface Form {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  gender: string;
   picture: string;
-  country: string | undefined;
-  terms: boolean | undefined;
+  country: string;
+  terms: boolean;
 }
 
 interface formSlice {
