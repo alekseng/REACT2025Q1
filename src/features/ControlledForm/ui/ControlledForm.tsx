@@ -8,6 +8,7 @@ import { Form, formActions } from '../../../shared/model/formSlice.ts';
 import { formSchema } from '../../../shared/lib/validation/formSchema.ts';
 import { convertImageToBase64 } from '../../../shared/lib/file/convertImageToBase64.ts';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getPasswordStrength } from '../../../shared/lib/password/getPasswordStrength.ts';
 
 type formData = Omit<Form, 'picture'> & {
   picture: FileList;
@@ -18,6 +19,7 @@ export const ControlledForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
   } = useForm<formData>({
     resolver: yupResolver(formSchema),
@@ -25,6 +27,11 @@ export const ControlledForm = () => {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const password = watch('password');
+  let strength = 0;
+  if (password) {
+    strength = getPasswordStrength(password);
+  }
 
   const handleSubmitForm = async (data: formData) => {
     const img = await convertImageToBase64(data.picture[0]);
@@ -93,6 +100,12 @@ export const ControlledForm = () => {
               id="password"
               {...register('password')}
             />
+            <div className={cls['progress-bar']}>
+              <div
+                className={`${cls['progress-fill']} ${cls[`strength-${strength}`]}`}
+                style={{ width: `${(strength / 5) * 100}%` }}
+              />
+            </div>
             {errors.password && (
               <p className={cls.error}>{errors.password.message}</p>
             )}

@@ -8,6 +8,7 @@ import { formActions } from '../../../shared/model/formSlice.ts';
 import { formSchema } from '../../../shared/lib/validation/formSchema.ts';
 import * as yup from 'yup';
 import { convertImageToBase64 } from '../../../shared/lib/file/convertImageToBase64.ts';
+import { getPasswordStrength } from '../../../shared/lib/password/getPasswordStrength.ts';
 
 export const UncontrolledForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,6 +25,13 @@ export const UncontrolledForm = () => {
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
+  const [strength, setStrength] = useState(0);
+
+  const handleChange = () => {
+    if (passwordRef.current) {
+      setStrength(getPasswordStrength(passwordRef.current.value));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -125,7 +133,14 @@ export const UncontrolledForm = () => {
               id="password"
               name="password"
               ref={passwordRef}
+              onChange={handleChange}
             />
+            <div className={cls['progress-bar']}>
+              <div
+                className={`${cls['progress-fill']} ${cls[`strength-${strength}`]}`}
+                style={{ width: `${(strength / 5) * 100}%` }}
+              />
+            </div>
             {errors.password && <p className={cls.error}>{errors.password}</p>}
           </div>
 
