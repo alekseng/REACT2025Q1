@@ -58,14 +58,14 @@ export const UncontrolledForm = () => {
 
       dispatch(
         formActions.addForm({
-          name: nameRef.current?.value,
-          age: ageRef.current?.valueAsNumber,
-          email: emailRef.current?.value,
-          password: passwordRef.current?.value,
-          gender: genderRef.current?.value,
-          picture: img,
-          country: countryRef.current?.value,
-          terms: termsRef.current?.checked,
+          name: nameRef.current?.value || '',
+          age: ageRef.current?.valueAsNumber || 0,
+          email: emailRef.current?.value || '',
+          password: passwordRef.current?.value || '',
+          gender: genderRef.current?.value || '',
+          picture: img || '',
+          country: countryRef.current?.value || '',
+          terms: termsRef.current?.checked || false,
         })
       );
 
