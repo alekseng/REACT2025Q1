@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  width: 400px;
+  height: max-content;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    > p {
+      margin: 0;
+      margin-bottom: 5px;
+    }
+  }
+
+  > img {
+    width: 80px;
+    height: 80px;
+  }
+}
