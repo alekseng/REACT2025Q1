@@ -1,3 +1,7 @@
-.h1 {
-  font-size: 40px;
+.text {
+  width: max-content;
+  height: calc(100dvh - var(--padding) * 2);
+  margin: 0 auto;
+  text-align: center;
+  align-content: center;
 }
