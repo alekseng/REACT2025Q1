@@ -3,6 +3,14 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 20px;
   max-width: var(--max-width);
+  padding: var(--padding);
+}
+
+.text {
+  width: max-content;
+  height: calc(100dvh - var(--padding) * 2);
+  margin: 0 auto;
+  text-align: center;
+  align-content: center;
 }

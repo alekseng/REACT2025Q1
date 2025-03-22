@@ -1,0 +1,10 @@
+.filter-controls {
+  position: sticky;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  top: 0;
+  background-color: var(--bg-color);
+  padding: var(--padding);
+}
