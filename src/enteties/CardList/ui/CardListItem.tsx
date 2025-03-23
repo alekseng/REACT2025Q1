@@ -1,6 +1,6 @@
 import cls from './CardListItem.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 interface CardListItemProps {
   name: string;
@@ -9,7 +9,7 @@ interface CardListItemProps {
   img: string;
 }
 
-export const CardListItem = (props: CardListItemProps) => {
+export const CardListItem = memo((props: CardListItemProps) => {
   const { name, population, region, img } = props;
   const navigate = useNavigate();
   const id = name.replace(/\s/g, '');
@@ -45,4 +45,6 @@ export const CardListItem = (props: CardListItemProps) => {
       {visited && <div className={cls['visited-mark']}>Viewed</div>}
     </div>
   );
-};
+});
+
+CardListItem.displayName = 'CardListItem';

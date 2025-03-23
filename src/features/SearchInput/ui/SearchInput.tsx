@@ -1,8 +1,33 @@
 import cls from './SearchInput.module.scss';
 import { useCountryFilter } from '../../../shared/context/useCoutryFilter.ts';
+import { memo, useCallback, useEffect } from 'react';
 
-export const SearchInput = () => {
+export const SearchInput = memo(() => {
   const { state, dispatch } = useCountryFilter();
+
+  useEffect(() => {
+    const savedCountry = localStorage.getItem('selectedCountry');
+    if (savedCountry && savedCountry !== state.country) {
+      dispatch({
+        type: 'SET_COUNTRY',
+        payload: savedCountry,
+      });
+    }
+  }, [state.country, dispatch]);
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const region = e.target.value;
+
+      localStorage.setItem('selectedCountry', region);
+
+      dispatch({
+        type: 'SET_COUNTRY',
+        payload: e.target.value,
+      });
+    },
+    [dispatch]
+  );
 
   return (
     <div className={cls.item}>
@@ -14,9 +39,8 @@ export const SearchInput = () => {
         name="country"
         list="country-list"
         autoComplete="country-name"
-        onChange={(e) =>
-          dispatch({ type: 'SET_COUNTRY', payload: e.target.value })
-        }
+        defaultValue={state.country || ''}
+        onChange={handleChange}
       />
       <datalist className={cls['country-list']} id="country-list">
         {state.data.map((country) => (
@@ -25,4 +49,6 @@ export const SearchInput = () => {
       </datalist>
     </div>
   );
-};
+});
+
+SearchInput.displayName = 'SearchInput';

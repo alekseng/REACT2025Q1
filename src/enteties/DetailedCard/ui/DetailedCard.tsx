@@ -1,20 +1,18 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCountryFilter } from '../../../shared/context/useCoutryFilter.ts';
 import cls from './DetailedCard.module.scss';
+import { memo } from 'react';
 
-export const DetailedCard = () => {
+export const DetailedCard = memo(() => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { state, dispatch } = useCountryFilter();
+  const { state } = useCountryFilter();
   const splitCountryName = id?.replace(/([a-z])([A-Z])/g, '$1 $2');
   const currentCountry = state.data.filter(
     (country) => country.name.common === splitCountryName
   );
 
   const handleClose = () => {
-    dispatch({ type: 'SET_REGION', payload: '' });
-    dispatch({ type: 'SET_POPULATION', payload: '' });
-    dispatch({ type: 'SET_COUNTRY', payload: '' });
     navigate(`/`);
   };
 
@@ -82,4 +80,6 @@ export const DetailedCard = () => {
       ))}
     </div>
   );
-};
+});
+
+DetailedCard.displayName = 'DetailedCard';
