@@ -1,4 +1,5 @@
 .item {
+  position: relative;
   display: grid;
   justify-content: start;
   justify-items: start;
@@ -43,4 +44,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.visited {
+  opacity: 0.5;
+}
+
+.visited-mark {
+  position: absolute;
+  right: 0;
+  background: gainsboro;
+  padding: 5px;
 }
