@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+# Performance Profiling Task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## before optimization
 
-Currently, two official plugins are available:
+first render
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![before optimization flamegraph](./profiler/image.png)
+![before optimization flamegraph-1](./profiler/image-2.png)
+![before optimization rancked chart](./profiler/image-1.png)
+![before optimization rancked chart-1](./profiler/image-3.png)
 
-## Expanding the ESLint configuration
+filter by region
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![before optimization flamegraph](./profiler/image-4.png)
+![before optimization flamegraph-1](./profiler/image-5.png)
 
-- Configure the top-level `parserOptions` property like this:
+sorting by population
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![before optimization flamegraph](./profiler/image-6.png)
+![before optimization flamegraph-1](./profiler/image-7.png)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+searching by name
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+![before optimization flamegraph](./profiler/image-8.png)
+![before optimization flamegraph-1](./profiler/image-9.png)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## after optimization
+
+first render
+
+![before optimization flamegraph](./profiler/image-10.png)
+![before optimization flamegraph-1](./profiler/image-11.png)
+![before optimization rancked chart](./profiler/image-12.png)
+![before optimization rancked chart-1](./profiler/image-13.png)
+
+filter by region
+
+![before optimization flamegraph](./profiler/image-14.png)
+![before optimization flamegraph-1](./profiler/image-15.png)
+
+sorting by population
+
+![before optimization flamegraph](./profiler/image-16.png)
+![before optimization flamegraph-1](./profiler/image-17.png)
+
+searching by name
+
+![before optimization flamegraph](./profiler/image-18.png)
+![before optimization flamegraph-1](./profiler/image-19.png)
+
+## Conclusion
+
+| Components and actions | Before   | After   | Reduced   |
+| ---------------------- | -------- | ------- | --------- |
+| App render             | 14.7 ms  | 12.6 ms | 14.29 %   |
+| CardList               | 106.3 ms | 53.4 ms | 49.76 %   |
+| Filter by region       | 10.5 ms  | 3.3 ms  | 68.57 %   |
+| sorting by population  | 20.8 ms  | 5.5 ms  | 73.56 %   |
+| searching by name      | 1.9 ms   | 2 ms    | unchanged |

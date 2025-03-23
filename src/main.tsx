@@ -1,10 +1,18 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './app/styles/index.css';
+import App from './app/App.tsx';
+import { CountryFilterProvider } from './app/providers/CountryFilterProvider';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  createRoot(rootElement).render(
+    <StrictMode>
+      <CountryFilterProvider>
+        <App />
+      </CountryFilterProvider>
+    </StrictMode>
+  );
+} else {
+  console.error('Root element not found!');
+}
